@@ -1,8 +1,6 @@
 # CRYPTOGRAPHY
 
-I created this repository because I needed a way to encrypt my passwords while making those secrets accessible by my scripts. I also deal a lot with sensitive data from other people. It's my responsability to turn the data structure and accessible without exposing sensitive information.
-
-In my research, I found a lot of good tools, but to supply my demand I had to do build some code by myself. So that I can use of those resources in a more suitable way.
+This repository was created to provide a solution for encrypting passwords and making them accessible to scripts, while also handling sensitive data from other individuals in a secure manner. After conducting research, it was found that existing tools were not sufficient to meet the necessary requirements, thus custom code was developed to better address these needs.
 
 ### In this repository I used some stand methods such as:
 
