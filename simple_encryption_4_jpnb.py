@@ -1,27 +1,32 @@
 import getpass
 
-# Password encryption lambda function
-encrypt_password = lambda password, input_str: encrypt(input_str + password)
-
-# Password decryption lambda function
-decrypt_password = lambda encrypted_password, input_str: decrypt(encrypted_password)[len(input_str):]
-
 # Encryption function
-encrypt = lambda password: ''.join(chr(ord(char) + 1) for char in password)
+def encrypt(password):
+    return ''.join(chr(ord(char) + 1) for char in password)
 
 # Decryption function
-decrypt = lambda encrypted_password: ''.join(chr(ord(char) - 1) for char in encrypted_password)
+def decrypt(encrypted_password):
+    return ''.join(chr(ord(char) - 1) for char in encrypted_password)
+
+# Function to encrypt a password based on input string
+def encrypt_password(input_str, password):
+    return encrypt(input_str + password)
+
+# Function to decrypt a password based on input string
+def decrypt_password(encrypted_password, input_str):
+    return decrypt(encrypted_password)[len(input_str):]
 
 # Example usage
-password = "teste"
-input_str = getpass.getpass("Enter password to hide your message: ")
+def main():
+    password = "teste"
+    input_str = getpass.getpass("Enter password to hide your message: ")
 
-encrypted_password = encrypt_password(password, input_str)
-decrypted_password = decrypt_password(encrypted_password, input_str)
+    encrypted_password = encrypt_password(input_str, password)
+    decrypted_password = decrypt_password(encrypted_password, input_str)
 
-print("Original Password:", password)
-print("Encrypted Password:", encrypted_password)
-print("Decrypted Password:", decrypted_password)
+    print("Original Password:", password)
+    print("Encrypted Password:", encrypted_password)
+    print("Decrypted Password:", decrypted_password)
 
-key = decrypt("encrypted_key")
-password = decrypt("encrypted_password")
+if __name__ == "__main__":
+    main()
