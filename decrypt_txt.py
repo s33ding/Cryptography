@@ -5,5 +5,5 @@ import json
 
 obj = FileHandler()
 data = obj.read_file()
-encrypted_data = encrypt_str(data)
+encrypted_data = decrypt_str(data)
 obj.write_file(encrypted_data)
