@@ -40,11 +40,13 @@ def decrypt_str(text, key_file=key_file):
     return decMessage
 
 def encrypt_json_fernet(data,key_file=key_file):
+    print("encrypting!")
     for key,value in data.items():
         data[key] = encrypt_str(text = value, key_file=key_file)
     return data
     
 def decrypt_json_fernet(data,key_file=key_file):
+    print("decrypting!")
     for key,value in data.items():
         data[key] = decrypt_str(text = value, key_file=key_file)
     return data

@@ -4,7 +4,7 @@ import sys
 
 class FileHandler:
     def __init__(self, file_name=None):
-        print("stating: FileHandler")
+#        print("stating: FileHandler")
         self.file_name = file_name or self.get_file_name()
         self.data_handler = self.create_handler(self.file_name)
 
@@ -18,12 +18,16 @@ class FileHandler:
         return self.data_handler.read_file()
 
     def create_handler(self, file_name):
-        print("handling:", file_name)
+#        print("handling:", file_name)
+        print("")
         if file_name.endswith('.json'):
+#            print("stating: JsonFileHandler")
             return JsonFileHandler(file_name)
         elif file_name.endswith('.pickle') or file_name.endswith('.pkl'):
+#            print("stating: PickleFileHandler")
             return PickleFileHandler(file_name)
         else:
+#            print("stating: TextFileHandler")
             return TextFileHandler(file_name)
 
     def write_file(self, data):
@@ -33,7 +37,6 @@ class FileHandler:
 
 class JsonFileHandler:
     def __init__(self, file_name):
-        print("stating: JsonFileHandler")
         self.file_name = file_name
 
     def read_file(self):
@@ -47,7 +50,6 @@ class JsonFileHandler:
 
     def write_file(self, data):
         file_name = self.file_name 
-        print("writing:",file_name)
         try:
             with open(file_name, 'w') as file:
                 json.dump(data, file, indent=4)
@@ -56,12 +58,10 @@ class JsonFileHandler:
 
 class PickleFileHandler:
     def __init__(self, file_name):
-        print("stating: PickleFileHandler")
         self.file_name = file_name
 
     def read_file(self):
         file_name = self.file_name 
-        print("reading:",file_name)
         try:
             with open(file_name, 'rb') as f:
                 data = pickle.load(f)
@@ -74,7 +74,6 @@ class PickleFileHandler:
 
     def write_file(self, data):
         file_name = self.file_name 
-        print("writing:",file_name)
         try:
             # Directly from dictionary
             with open(file_name, 'wb') as outfile:
@@ -85,12 +84,10 @@ class PickleFileHandler:
 
 class TextFileHandler:
     def __init__(self, file_name):
-        print("stating: TextFileHandler")
         self.file_name = file_name
 
     def read_file(self):
         file_name = self.file_name 
-        print("reading:",file_name)
         try:
             with open(self.file_name, 'r') as file:
                 return file.read()
@@ -100,7 +97,6 @@ class TextFileHandler:
 
     def write_file(self, data):
         file_name = self.file_name 
-        print("writing:",file_name)
         try:
             with open(file_name, 'w') as file:
                 file.write(data)
