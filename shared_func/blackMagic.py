@@ -11,10 +11,8 @@ import json
 import os
 
 
-class blackMagic:
-    def __init__(self):
-        key_file = os.environ.get("BLACK_KEY")
-        
+key_file = os.environ.get("BLACK_KEY")
+
 def gen_fernet_key(key_file='fernet.bin'):
     key = Fernet.generate_key()
     with open(key_file,'wb') as f:
