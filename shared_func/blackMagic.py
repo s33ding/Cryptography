@@ -1,9 +1,3 @@
-from getpass import getpass
-from Crypto.Random import get_random_bytes
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad, unpad
-from Crypto.Protocol.KDF import PBKDF2
-from Crypto.Hash import SHA256
 from cryptography.fernet import Fernet
 import pandas as pd
 import numpy as np
@@ -63,9 +57,11 @@ def get_col(col):
             return input("col name:")
 
 def encrypty_col(df, col=None):
+    col = get_col(col)
     df[col]= df[col].apply(lambda x: encrypt_str(x))
     return df
 
 def decrypty_col(df, col = None): 
+    col = get_col(col)
     df[col]= df[col].apply(lambda x: decrypt_str(x))
     return df
