@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 import json
 import os
+import sys
 
 
 key_file = os.environ.get("BLACK_KEY")
@@ -51,20 +52,17 @@ def decrypt_json_fernet(data,key_file=key_file):
         data[key] = decrypt_str(text = value, key_file=key_file)
     return data
 
-def encrypty_col(df, lst_cols=[]):
-    lst_cols = []
-    if lst_cols == []:
-        col = input("COLUMN_NAME:")
-        lst_cols.append(col)
-    for x in lst_cols:
-        df[x]= df[x].apply(lambda x: encrypt_str(x))
+
+def get_col():
+    if len(sys.argv) > 2:
+        return sys.argv[2]
+    else:
+        return input("col name:")
+
+def encrypty_col(df, col = get_col()):
+    df[col]= df[col].apply(lambda x: encrypt_str(x))
     return df
 
-def decrypty_col(df, lst_cols=[]):
-    lst_cols = []
-    if lst_cols == []:
-        col = input("COLUMN_NAME:")
-        lst_cols.append(col)
-    for x in lst_cols:
-        df[x]= df[x].apply(lambda x: decrypt_str(x))
-    return df, lst_cols  
+def decrypty_col(df, col = get_col()):
+    df[col]= df[col].apply(lambda x: decrypt_str(x))
+    return df
