@@ -9,9 +9,11 @@ This repository was created to provide a solution for encrypting passwords and m
 
 ### Some importante Python libs that  I used in this repository:
 
-- ![Cryptography](https://cryptography.io/en/latest/)
+- Cryptography
 - Pandas
-- ![Mysql](https://dev.mysql.com/doc/connector-python/en/connector-python-installation-binary.html) 	 
+- Mysql
+- json
+- pickle
 
 ![WALLPAPER](https://wallpapercave.com/wp/wp9222270.jpg)
 
@@ -20,3 +22,4 @@ References:
 - https://devrescue.com/python-aes-cbc-encrypt-example/
 - https://cryptography.io/en/latest/fernet/
 - https://www.youtube.com/watch?v=WotoCRu_AN4
+- https://dev.mysql.com/doc/connector-python/en/connector-python-installation-binary.html 	 
