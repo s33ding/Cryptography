@@ -1,8 +1,13 @@
-sys.append(f"{os.environ["CRYPTOGRAFY"]}/shared_func")
-from blackMagic import *
+import os
+import sys
 
-df = pd.read_csv('dataset/MOCK_DATA.csv')
+repo_folder = os.environ['CRYPTOGRAPHY']
+sys.path.append(repo_folder)
+from shared_func.blackMagic import *
+
+pth = f"{repo_folder}/dataset/mock_data.csv"
+df = pd.read_csv(pth)
 df['cpf_enc'] = df.cpf.apply(lambda x: encrypt_str(x))
 df['cpf_dec'] = df.cpf_enc.apply(lambda x: decrypt_str(x))
-
-df.head()
+df = df[["cpf_dec", "cpf_enc"]]
+print(df.head())
