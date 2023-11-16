@@ -4,14 +4,17 @@ import sys
 
 class FileHandler:
     def __init__(self, file_name=None):
-#        print("stating: FileHandler")
-        self.file_name = file_name or self.get_file_name()
+        print("file_name:",file_name)
+        self.file_name = self.get_file_name(file_name)
         self.data_handler = self.create_handler(self.file_name)
 
-    def get_file_name(self):
-        if len(sys.argv) > 1:
-            return sys.argv[1]
-        return input("Enter file name: ")
+    def get_file_name(self,file_name):
+        if file_name is not None:
+            return file_name
+        else:
+            if len(sys.argv) > 1:
+                return sys.argv[1]
+            return input("Enter file name: ")
 
     def read_file(self):
         print("reading:",self.file_name)
@@ -102,9 +105,3 @@ class TextFileHandler:
                 file.write(data)
         except Exception as e:
             print("Error:", str(e))
-
-# Example usage:
-handler = FileHandler()
-data = handler.read_file()
-print(data)  # You can now use 'data' as needed
-

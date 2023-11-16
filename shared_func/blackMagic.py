@@ -53,16 +53,19 @@ def decrypt_json_fernet(data,key_file=key_file):
     return data
 
 
-def get_col():
-    if len(sys.argv) > 2:
-        return sys.argv[2]
+def get_col(col):
+    if col is not None:
+        return col
     else:
-        return input("col name:")
+        if len(sys.argv) > 2:
+            return sys.argv[2]
+        else:
+            return input("col name:")
 
-def encrypty_col(df, col = get_col()):
+def encrypty_col(df, col=None):
     df[col]= df[col].apply(lambda x: encrypt_str(x))
     return df
 
-def decrypty_col(df, col = get_col()):
+def decrypty_col(df, col = None): 
     df[col]= df[col].apply(lambda x: decrypt_str(x))
     return df
