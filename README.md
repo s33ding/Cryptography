@@ -12,8 +12,10 @@ This repository was created to provide a solution for encrypting passwords and m
 - Cryptography
 - Pandas
 - Mysql
-- json
-- pickle
+- Json
+- Pickle
+- Sys
+- Os
 
 ![WALLPAPER](https://wallpapercave.com/wp/wp9222270.jpg)
 
