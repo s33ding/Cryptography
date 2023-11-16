@@ -4,19 +4,14 @@ This repository was created to provide a solution for encrypting passwords and m
 
 ### In this repository I used some stand methods such as:
 
-- AES(Advanced Encryption Standard) 
-- PBFK2 (Password-Based Key Derivation Function)
-- Cipher (famous algorithm for performing encryption or decryption)
-- SHA-2 (cryptographic hash functions designed by the United States National Security Agency)
-- Fernet (famous algorithm for symmetric encryption and authentication to data)
+- Fernet: famous algorithm for symmetric encryption and authentication to data.
+- GnuPrivacy Guard (GPG): allows you to securely encrypt files so that only the intended recipient can decrypt them. Specifically, GPG complies with the OpenPGP standard. It is modeled on a program called Pretty Good Privacy (PGP). PGP was written in 1991 by Phil Zimmerman.
 
 ### Some importante Python libs that  I used in this repository:
 
-- Getpass 	 
-- Crypto 	 	 
-- Cryptography
+- ![Cryptography](https://cryptography.io/en/latest/)
 - Pandas
-- Base64	 
+- ![Mysql](https://dev.mysql.com/doc/connector-python/en/connector-python-installation-binary.html) 	 
 
 ![WALLPAPER](https://wallpapercave.com/wp/wp9222270.jpg)
 
@@ -24,3 +19,4 @@ References:
 - https://youtu.be/gyPuAJfOnGk
 - https://devrescue.com/python-aes-cbc-encrypt-example/
 - https://cryptography.io/en/latest/fernet/
+- https://www.youtube.com/watch?v=WotoCRu_AN4
