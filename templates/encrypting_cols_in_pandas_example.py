@@ -2,8 +2,8 @@ import os
 import sys
 
 repo_folder = os.environ['CRYPTOGRAPHY']
-sys.path.append(repo_folder)
-from shared_func.blackMagic import *
+sys.path.append(f"{repo_folder}/shared_func")
+from blackMagic import *
 
 pth = f"{repo_folder}/dataset/mock_data.csv"
 df = pd.read_csv(pth)
