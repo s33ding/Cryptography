@@ -1,5 +1,4 @@
 import pandas as pd
-import sys
 from shared_func.pandas_class import Pd
 from shared_func.blackMagic import *
 
