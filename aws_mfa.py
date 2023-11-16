@@ -41,7 +41,7 @@ def read_cred(aws_key_path):
         'arn': arn_val
     }
 
-def get_temporary_credentials(aws_cred):
+def get_temporary_credentials(aws_cred, DurationSeconds=40000):
     try:
         print("requesting!")
         sts_client = boto3.client(
@@ -53,7 +53,7 @@ def get_temporary_credentials(aws_cred):
         aws_token = input('☁️  TOKEN: ')
 
         response = sts_client.get_session_token(
-            DurationSeconds=30000,
+            DurationSeconds=DurationSeconds,
             SerialNumber=aws_cred['arn'],
             TokenCode=aws_token
         )
@@ -74,7 +74,7 @@ def print_fun_message():
 
 aws_key_path = select_aws_key()
 aws_cred = read_cred(aws_key_path)
-aws_tmp_cred = get_temporary_credentials(aws_cred)
+aws_tmp_cred = get_temporary_credentials(aws_cred, DurationSeconds=40000)
 
 # Write temporary credentials JSON to file
 temp_credentials_pth = os.environ.get("AWS_TEMP_CRED")
