@@ -1,4 +1,5 @@
 import os
+from getpass import getpass
 import json
 import subprocess
 import boto3
@@ -24,16 +25,13 @@ def select_aws_key():
         exit(1)
 
 def read_cred(aws_key_path):
-    print("aws_key_path:",aws_key_path)
     obj = FileHandler(aws_key_path)
     data = obj.read_file()
     decrypted_data = decrypt_json_fernet(data)
-    print("decrypted!")
 
     id_val = decrypted_data.get('id')
     secret_val = decrypted_data.get('secret')
     arn_val = decrypted_data.get('arn')
-    print("id:",id_val)
 
     return {
         'id': id_val,
@@ -43,14 +41,13 @@ def read_cred(aws_key_path):
 
 def get_temporary_credentials(aws_cred, DurationSeconds=40000):
     try:
-        print("requesting!")
         sts_client = boto3.client(
             'sts',
             aws_access_key_id=aws_cred["id"],
             aws_secret_access_key=aws_cred["secret"],
         )
 
-        aws_token = input('☁️  TOKEN: ')
+        aws_token = getpass('☁️  TOKEN: ')
 
         response = sts_client.get_session_token(
             DurationSeconds=DurationSeconds,
@@ -94,9 +91,8 @@ with open(credentials_file, 'a') as cred_file:
     cred_file.write(f"aws_secret_access_key = {aws_tmp_cred['secret']}\n")
     cred_file.write(f"aws_session_token = {aws_tmp_cred['token']}\n")
 
-if temporary_credentials:
+if aws_tmp_cred:
     print_fun_message()
-    #testing
     subprocess.run(["aws", "s3", "ls"])
 else:
     print("Failed to obtain temporary credentials.")
