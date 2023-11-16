@@ -61,6 +61,9 @@ def encrypty_col(df, col=None):
     df[col]= df[col].apply(lambda x: encrypt_str(x))
     return df
 
+def hello():
+    print("hello")
+
 def decrypty_col(df, col = None): 
     col = get_col(col)
     df[col]= df[col].apply(lambda x: decrypt_str(x))

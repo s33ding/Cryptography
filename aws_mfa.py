@@ -24,7 +24,7 @@ def select_aws_key():
         exit(1)
 
 def read_cred(aws_key_path):
-    #print("aws_key_path:",aws_key_path)
+    print("aws_key_path:",aws_key_path)
     obj = FileHandler(aws_key_path)
     data = obj.read_file()
     decrypted_data = decrypt_json_fernet(data)

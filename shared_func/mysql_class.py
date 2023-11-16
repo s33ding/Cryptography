@@ -2,11 +2,17 @@ import pandas as pd
 import os
 import json
 import mysql.connector
+import sys
+repo_folder = os.environ['CRYPTOGRAPHY']
+sys.path.append(f"{repo_folder}/shared_func")
+from file_handler_class import *
+from blackMagic import *
 
 class MySQL:
     def __init__(self, root_user=False):
         self.root_user = root_user
-        self.get_mysql_cred()
+        cred = self.get_mysql_cred()
+        self.cred = cred
 
     def get_mysql_cred(self):
         if self.root_user:
@@ -18,14 +24,17 @@ class MySQL:
             if "MYSQL_CRED" in os.environ:
                  credential_pth = os.environ["MYSQL_CRED"]
 
-        with open (credential_pth, "r") as f:
-            db_cred = json.load(f)
-        self.cred = db_cred
-        
+        obj = FileHandler(credential_pth)
+        data = obj.read_file()
+        key_file = os.environ.get("BLACK_KEY")
+        cred = decrypt_json_fernet(data, key_file)
+        return cred
+
 
     def connect_to_mysql(self):
         try:
             db_cred = self.cred
+            print("login as:", db_cred.get("user"))
             connection = mysql.connector.connect(
                 host=db_cred.get('host'),  
                 user=db_cred.get('user'),    
@@ -105,3 +114,4 @@ class MySQL:
             return df
         except mysql.connector.Error as e:
             return f"Error connecting to MySQL: {e}"
+
