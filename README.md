@@ -21,7 +21,6 @@ This repository was created to provide a solution for encrypting passwords and m
 
 References: 
 - https://youtu.be/gyPuAJfOnGk
-- https://devrescue.com/python-aes-cbc-encrypt-example/
 - https://cryptography.io/en/latest/fernet/
-- https://www.youtube.com/watch?v=WotoCRu_AN4
+- https://www.youtube.com/watch?v=CEADq-B8KtI
 - https://dev.mysql.com/doc/connector-python/en/connector-python-installation-binary.html 	 
