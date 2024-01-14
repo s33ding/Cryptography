@@ -1,6 +1,9 @@
-from shared_func.file_handler_class import *
-from shared_func.blackMagic import *
 import sys
+import os
+pth = f"{os.environ["CRYPTOGRAPHY"]}/shared_func"
+sys.path.append(pth)
+from file_handler_class import *
+from blackMagic import *
 import json
 
 obj = FileHandler()

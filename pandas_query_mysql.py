@@ -1,7 +1,14 @@
 import sys
 import json
 import pandas as pd
-from shared_func.mysql_class import MySQL
+import os
+import sys
+
+# Ensure the directory containing your module is in sys.path
+pth = f"{os.environ["CRYPTOGRAPHY"]}/shared_func"
+sys.path.append(pth)
+
+from mysql_class import MySQL
 
 db = MySQL()
 df = db.qry()

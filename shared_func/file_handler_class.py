@@ -35,7 +35,6 @@ class FileHandler:
 
     def write_file(self, data):
         print("writing:",self.file_name)
-        print("data:",data)
         self.data_handler.write_file(data)
 
 class JsonFileHandler:

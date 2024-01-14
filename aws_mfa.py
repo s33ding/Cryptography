@@ -1,10 +1,16 @@
 import os
+import sys
+pth = f"{os.environ["CRYPTOGRAPHY"]}/shared_func"
+sys.path.append(pth)
+
+from file_handler_class import *
+from blackMagic import *
+
 from getpass import getpass
 import json
 import subprocess
 import boto3
-from shared_func.file_handler_class import *
-from shared_func.blackMagic import *
+
 
 def select_aws_key():
     aws_key_main = os.environ.get("AWS_KEY_MAIN")
