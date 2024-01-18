@@ -5,40 +5,35 @@ class GPG:
     def __init__(self, file_name=None, folder_name=None):
 
         self.recipient_email = os.environ.get("GPG_RECIPIENT_EMAIL")
+        self.file_name = file_name
 
         if self.recipient_email is None:
             print("GPG_RECIPIENT_EMAIL not found in environment variables.")
             return False 
         else:
-            self.get_folder(folder_name)
-            if self.get_folder is not None:
+            self.get_file()
+            if self.folder_name is not None:
                 print("ENCRYPTING FILES IN A FOLDER:")
                 for fl in os.listdir():
                     print("processing:", fl)
                     self.process(fl)
             else:
-                self.get_file(file_name)
                 file_name = self.file_name
                 print("processing:", file_name)
                 self.process(file_name)
 
 
-    def get_file(self, file_name): 
-        if file_name is None:
+    def get_file(self): 
+        if self.file_name is None:
             if len(sys.argv) > 1:
-                file_name = sys.argv[1]
+                self.file_name = sys.argv[1]
+                if self.file_name == ".":
+                    self.folder_name = os.getcwd()
             else:
-                file_name = input("input_file:",)
+                self.file_name = input("input_file:",)
+                self.folder_name = None
 
-        self.file_name = file_name
 
-    def get_folder(self, folder_name): 
-        if folder_name is None:
-            if len(sys.argv) > 2:
-                folder_name = sys.argv[2]
-            else:
-                folder_name = None
-        self.folder_name  = folder_name  
 
     def encrypt_file(self, file_name):
         self.file_name = file_name
