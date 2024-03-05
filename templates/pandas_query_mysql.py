@@ -2,7 +2,7 @@ import sys
 import os
 
 repo_folder = os.environ['CRYPTOGRAPHY']
-sys.path.append(f"{repo_folder}/shared_func")
+sys.path.append(f"{repo_folder}")
 
 import json
 import pandas as pd
