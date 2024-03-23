@@ -1,6 +1,6 @@
 import os
 import sys
-pth = f"{os.environ["CRYPTOGRAPHY"]}/shared_func"
+pth = f"{os.environ['CRYPTOGRAPHY']}/shared_func"
 sys.path.append(pth)
 
 from file_handler_class import *

@@ -11,5 +11,6 @@ sys.path.append(pth)
 from mysql_class import MySQL
 
 db = MySQL()
+print("------------------------")
+#input: query, the default value for query is None
 df = db.qry()
-print(df)

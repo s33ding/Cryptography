@@ -16,13 +16,13 @@ class MySQL:
 
     def get_mysql_cred(self):
         if self.root_user:
-            environ_name = "MYSQL_ROOT_CRED"
+            environ_name = "MYSQL_MASTER_CRED"
             if environ_name in os.environ:
-                 credential_pth = os.environ["MYSQL_CRED"]
+                 credential_pth = os.environ[environ_name]
         else:
             environ_name = "MYSQL_CRED"
             if "MYSQL_CRED" in os.environ:
-                 credential_pth = os.environ["MYSQL_CRED"]
+                 credential_pth = os.environ[environ_name]
 
         obj = FileHandler(credential_pth)
         data = obj.read_file()
@@ -34,7 +34,9 @@ class MySQL:
     def connect_to_mysql(self):
         try:
             db_cred = self.cred
+            print("------------------------------")
             print("login as:", db_cred.get("user"))
+            print("------------------------------")
             connection = mysql.connector.connect(
                 host=db_cred.get('host'),  
                 user=db_cred.get('user'),    
@@ -53,7 +55,7 @@ class MySQL:
             return None
 
     def execute_sql_queries(self, queries):
-        connection = self.connect_to_mysql(db_cred)
+        connection = self.connect_to_mysql()
         cursor = connection.cursor()
         len_lst = len(queries)
         print("len_lst_stmt:",len_lst)
@@ -63,6 +65,7 @@ class MySQL:
                 print(f"====={i}/{len_lst}")
                 print(query)
                 query = query.replace("\n"," ")
+                query = query.replace("  "," ")
                 cursor.execute(query)
             cursor.execute("COMMIT")
             print(f"Successfully executed {len(queries)} SQL queries.")
@@ -73,6 +76,8 @@ class MySQL:
         finally:
             cursor.close()
             connection.close()
+
+    exec_stmt = execute_sql_queries
 
     def generate_insert_statements(df, table_name):
         engine = self.connect_to_mysql(db_cred)
@@ -106,11 +111,27 @@ class MySQL:
         try:
             if query is None:
                 query = input("QUERY: ")
+                # Split the input into lines
+                lines = query.split('\n')
+
+                # Remove any empty lines from the input
+                lines = [line.strip() for line in lines if line.strip()]
+
+                # Join the non-empty lines into a single string
+                query = '\n'.join(lines)
+
+                print("------------------------------")
+                print("stmt:")
+                print(query)
             else:
                 print("stmt:")
                 print(query)
             engine_ms = self.connect_to_mysql()
             df = pd.read_sql(query, engine_ms)
+            print("------------------------------")
+            print("df:")
+            print(df)
+            print("------------------------------")
             return df
         except mysql.connector.Error as e:
             return f"Error connecting to MySQL: {e}"
