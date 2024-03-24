@@ -82,8 +82,29 @@ aws_tmp_cred = get_temporary_credentials(aws_cred, DurationSeconds=40000)
 # Write temporary credentials JSON to file
 temp_credentials_pth = os.environ.get("AWS_TEMP_CRED")
 
-with open(temp_credentials_pth, 'w') as temp_cred_file:
-    json.dump(aws_tmp_cred, temp_cred_file)
+try: 
+    with open(temp_credentials_pth, 'w') as temp_cred_file:
+        json.dump(aws_tmp_cred, temp_cred_file)
+except: 
+
+    try:
+        new_folder = temp_credentials_pth.replace('/tmp.json',"")
+        cmd = f"mkdir {new_folder}"; print(f"cmd:{cmd}")
+        os.system(cmd)
+    except Exception as e: print(e)
+    try:
+        cmd = f"echo '' > {temp_credentials_pth}"; print(f"cmd:{cmd}")
+        os.system(cmd)
+    except Exception as e: print(e)
+    try:
+        credentials_path = temp_credentials_pth.replace('/tmp.json',"/credentials")
+        cmd = f"echo '' > {credentials_path }"; print(f"cmd:{cmd}")
+
+        os.system(cmd)
+    except Exception as e: print(e)
+
+    with open(temp_credentials_pth, 'w') as temp_cred_file:
+        json.dump(aws_tmp_cred, temp_cred_file)
 
 # Remove existing credentials from file using os.system
 #export AWS_CRED="$USR_HOME/.aws/credentials"
