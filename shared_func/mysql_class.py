@@ -14,21 +14,24 @@ class MySQL:
         cred = self.get_mysql_cred()
         self.cred = cred
 
-    def get_mysql_cred(self):
-        if self.root_user:
-            environ_name = "MYSQL_MASTER_CRED"
-            if environ_name in os.environ:
-                 credential_pth = os.environ[environ_name]
+    def get_mysql_cred(self, secret_manager=None):
+        if secret_manager is not None:
+            pass
         else:
-            environ_name = "MYSQL_CRED"
-            if "MYSQL_CRED" in os.environ:
-                 credential_pth = os.environ[environ_name]
+            if self.root_user:
+                environ_name = "MYSQL_MASTER_CRED"
+                if environ_name in os.environ:
+                     credential_pth = os.environ[environ_name]
+            else:
+                environ_name = "MYSQL_CRED"
+                if "MYSQL_CRED" in os.environ:
+                     credential_pth = os.environ[environ_name]
 
-        obj = FileHandler(credential_pth)
-        data = obj.read_file()
-        key_file = os.environ.get("BLACK_KEY")
-        cred = decrypt_json_fernet(data, key_file)
-        return cred
+            obj = FileHandler(credential_pth)
+            data = obj.read_file()
+            key_file = os.environ.get("BLACK_KEY")
+            cred = decrypt_json_fernet(data, key_file)
+            return cred
 
 
     def connect_to_mysql(self):
