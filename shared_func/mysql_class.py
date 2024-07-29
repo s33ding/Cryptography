@@ -9,29 +9,24 @@ from file_handler_class import *
 from blackMagic import *
 
 class MySQL:
-    def __init__(self, root_user=False):
-        self.root_user = root_user
-        cred = self.get_mysql_cred()
-        self.cred = cred
+    def __init__(self):
+        pass
 
-    def get_mysql_cred(self, secret_manager=None):
-        if secret_manager is not None:
-            pass
+    def get_mysql_cred(self):
+        if self.root_user:
+            environ_name = "MYSQL_MASTER_CRED"
+            if environ_name in os.environ:
+                 credential_pth = os.environ[environ_name]
         else:
-            if self.root_user:
-                environ_name = "MYSQL_MASTER_CRED"
-                if environ_name in os.environ:
-                     credential_pth = os.environ[environ_name]
-            else:
-                environ_name = "MYSQL_CRED"
-                if "MYSQL_CRED" in os.environ:
-                     credential_pth = os.environ[environ_name]
+            environ_name = "MYSQL_CRED"
+            if "MYSQL_CRED" in os.environ:
+                 credential_pth = os.environ[environ_name]
 
-            obj = FileHandler(credential_pth)
-            data = obj.read_file()
-            key_file = os.environ.get("BLACK_KEY")
-            cred = decrypt_json_fernet(data, key_file)
-            return cred
+        obj = FileHandler(credential_pth)
+        data = obj.read_file()
+        key_file = os.environ.get("BLACK_KEY")
+        cred = decrypt_json_fernet(data, key_file)
+        return cred
 
 
     def connect_to_mysql(self):

@@ -6,9 +6,6 @@ import sys
 class Boto:
     def __init__(self, aws_cred_json_file_path=None):
         self.json_file_path = aws_cred_json_file_path 
-        if self.json_file_path is None:
-            self.json_file_path = os.environ["AWS_TEMP_CRED"]
-
         self.create_boto3_session()
 
     def get_input(self):
@@ -61,12 +58,26 @@ class Boto:
         """
         Creates a new Boto3 session using AWS credentials stored in a JSON file.
         """
+        if self.json_file_path is not None:
 
-        aws_key, aws_secret, aws_token = self.read_aws_credentials()
+            aws_key, aws_secret, aws_token = self.read_aws_credentials()
 
-        self.session = boto3.Session(
-            region_name='us-east-1',
-            aws_access_key_id=aws_key,
-            aws_secret_access_key=aws_secret,
-            aws_session_token=aws_token
-            )
+            if aws_token is not None:
+
+                self.session = boto3.Session(
+                    region_name='us-east-1',
+                    aws_access_key_id=aws_key,
+                    aws_secret_access_key=aws_secret,
+                    aws_session_token=aws_token
+                    )
+            else:
+
+                self.session = boto3.Session(
+                    region_name='us-east-1',
+                    aws_access_key_id=aws_key,
+                    aws_secret_access_key=aws_secret
+                    )
+
+        else:
+            self.session = boto3.Session(region_name='us-east-1')
+
