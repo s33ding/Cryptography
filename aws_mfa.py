@@ -10,11 +10,12 @@ from getpass import getpass
 import json
 import subprocess
 import boto3
+import config
 
 
 def select_aws_key():
     aws_key_main = os.environ.get("AWS_KEY_MAIN")
-    aws_key_2 = os.environ.get("AWS_KEY_2")
+    aws_key_2 = os.environ.get("AWS_KEY2")
 
     # Prompt user to select AWS key
     print("☁️  Select an AWS key:")
@@ -31,6 +32,7 @@ def select_aws_key():
         exit(1)
 
 def read_cred(aws_key_path):
+    print("path:",aws_key_path)
     obj = FileHandler(aws_key_path)
     data = obj.read_file()
     decrypted_data = decrypt_json_fernet(data)
